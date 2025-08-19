@@ -86,7 +86,7 @@ bot.on('audio', async (msg) => {
 
   const filePath = await downloadFile(fileId, fileName);
   if (filePath) {
-    bot.sendMessage(chatId, '⏳ Расшифровываю аудиофайл....');
+    bot.sendMessage(chatId, '⏳ Расшифровываю аудиофайл...');
 
     const text = await transcribeAudio(filePath, 'audio/mpeg');
 
