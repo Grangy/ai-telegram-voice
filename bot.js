@@ -72,7 +72,7 @@ bot.on('voice', async (msg) => {
 
   const filePath = await downloadFile(fileId, fileName);
   if (filePath) {
-    bot.sendMessage(chatId, '⏳ Расшифровываю голосовое сообщение...');
+    bot.sendMessage(chatId, '⏳ Расшифровываю голосовое сообщение..');
 
     const text = await transcribeAudio(filePath, 'audio/ogg');
 
