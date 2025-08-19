@@ -99,7 +99,7 @@ bot.on('audio', async (msg) => {
 
     bot.sendMessage(
       chatId,
-      `📝 Текст:\n\`\`\`\n${safeText}\n\`\`\``,
+      `\n\`\`\`\n${safeText}\n\`\`\``,
       { parse_mode: 'MarkdownV2' }
     );
   }
