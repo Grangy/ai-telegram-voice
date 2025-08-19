@@ -73,10 +73,23 @@ bot.on('voice', async (msg) => {
   const filePath = await downloadFile(fileId, fileName);
   if (filePath) {
     bot.sendMessage(chatId, '⏳ Расшифровываю голосовое сообщение...');
+
     const text = await transcribeAudio(filePath, 'audio/ogg');
-    bot.sendMessage(chatId, `📝 Текст: ${text}`);
+
+    // Функция для форматирования текста как цитата в MarkdownV2
+    function formatAsQuote(text) {
+      // Экранируем спецсимволы MarkdownV2
+      const escaped = text.replace(/([_*[\]()~`>#+\-=|{}.!])/g, '\\$1');
+      // Добавляем символ ">" перед каждой строкой
+      return escaped.split('\n').map(line => `> ${line}`).join('\n');
+    }
+
+    const quotedText = formatAsQuote(text);
+
+    bot.sendMessage(chatId, quotedText, { parse_mode: 'MarkdownV2' });
   }
 });
+
 
 // Обработка аудиофайлов
 bot.on('audio', async (msg) => {
@@ -99,7 +112,7 @@ bot.on('audio', async (msg) => {
 
     bot.sendMessage(
       chatId,
-      `\n\`\`\`\n${safeText}\n\`\`\``,
+      `📝 Текст:\n\`\`\`\n${safeText}\n\`\`\``,
       { parse_mode: 'MarkdownV2' }
     );
   }
